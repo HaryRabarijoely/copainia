@@ -2,7 +2,15 @@ import Sidebar from "../components/Sidebar";
 import ChatWindow from "../components/ChatWindow";
 import ChatInput from "../components/ChatInput";
 
+import useChat from "../hooks/useChat";
+
 export default function Chat() {
+
+  const {
+    messages,
+    sendMessage,
+  } = useChat();
+
   return (
     <div className="h-screen flex">
 
@@ -10,9 +18,13 @@ export default function Chat() {
 
       <main className="flex-1 flex flex-col">
 
-        <ChatWindow />
+        <ChatWindow
+          messages={messages}
+        />
 
-        <ChatInput />
+        <ChatInput
+          onSend={sendMessage}
+        />
 
       </main>
 

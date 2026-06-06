@@ -1,24 +1,29 @@
 import { useState } from "react";
 
-export default function ChatInput() {
-
+export default function ChatInput({ onSend }) {
   const [text, setText] = useState("");
 
   const handleSend = () => {
-    console.log(text);
+    if (!text.trim()) return;
+
+    onSend(text);
     setText("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSend();
+    }
   };
 
   return (
     <div className="border-t bg-white p-4">
-
       <div className="max-w-4xl mx-auto flex gap-2">
 
         <input
           value={text}
-          onChange={(e) =>
-            setText(e.target.value)
-          }
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Posez une question..."
           className="flex-1 border rounded-xl p-3"
         />
